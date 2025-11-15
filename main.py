@@ -6,7 +6,6 @@ def main(page: ft.Page):
     page.theme_mode = ft.ThemeMode.LIGHT
 
     task_list = ft.Column(spacing=10)
-    row = ft.Row()
 
     def load_tasks():
         task_list.controls.clear()
@@ -16,6 +15,8 @@ def main(page: ft.Page):
 
     def create_task_row(task_id, task_text):
         task_field = ft.TextField(value=task_text, expand=True, read_only=True)
+
+        row_task = ft.Row()
 
         def enable_edit(_):
             task_field.read_only = False
@@ -33,14 +34,15 @@ def main(page: ft.Page):
 
         def delete_task(_):
             main_db.delete_task(task_id=task_id)
-            task_list.controls.remove(row)
+            task_list.controls.remove(row_task)
             task_field.update()
             page.update()
 
         delete_button = ft.IconButton(ft.Icons.DELETE, on_click=delete_task)
 
-        return ft.Row([task_field, edit_button, save_button, delete_button])
-
+        row_task.controls = [task_field, edit_button, save_button, delete_button]
+        return row_task
+    
     def add_task(_):
         if task_input.value:
             task = task_input.value
