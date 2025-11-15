@@ -1,4 +1,4 @@
+.bin
 .venv
 venv
-.bin
-__pycashe__/
+__pycache__/
