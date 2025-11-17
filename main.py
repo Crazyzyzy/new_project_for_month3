@@ -38,7 +38,7 @@ def main(page: ft.Page):
             task_field.update()
             page.update()
 
-        delete_button = ft.IconButton(ft.Icons.DELETE, on_click=delete_task)
+        delete_button = ft.IconButton(ft.Icons.DELETE, ft.Colors.RED, on_click=delete_task)
 
         row_task.controls = [task_field, edit_button, save_button, delete_button]
         return row_task
@@ -47,9 +47,7 @@ def main(page: ft.Page):
         if task_input.value:
             task = task_input.value
             task_id = main_db.add_task(task)
-            print(task_id)
             task_list.controls.append(create_task_row(task_id=task_id, task_text=task))
-            print(task_list)
             task_input.value = None
             page.update()
 
